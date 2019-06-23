@@ -47,9 +47,9 @@ begin
 	when "01101" => --compl
 		alu_result <= (not A) + 1;
 	when "01110" => --shift_left
-		alu_result <= std_logic_vector(unsigned(A) sll N);
+		alu_result <= A sll N;
 	when "01111" => --shift_right
-		alu_result <= std_logic_vector(unsigned(A) srl N);
+		alu_result <= A srl N;
 	when "11000" => --and
 		alu_result <= A and B;
 	when "11001" => --or
