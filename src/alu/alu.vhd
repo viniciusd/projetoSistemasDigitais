@@ -26,8 +26,8 @@ end alu;
 
 architecture behavioral of alu is
 
-variable alu_result : signed(7 downto 0);
-variable tmp : signed(8 downto 0);
+shared variable alu_result : signed(7 downto 0);
+shared variable tmp : signed(8 downto 0);
 
 function compare(A: signed(7 downto 0);
                     B: signed(7 downto 0);
