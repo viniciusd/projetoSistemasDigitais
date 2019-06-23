@@ -51,7 +51,8 @@ add_custom_target(runtest COMMAND ${CMAKE_CTEST_COMMAND} --verbose --build-run-d
 # Getting access to all VHDL sources
 add_subdirectory(${CMAKE_SOURCE_DIR}/src)
 # Retrieve Testbenches as well
-add_subdirectory(${CMAKE_SOURCE_DIR}/testbench)
+# TODO: Don't have any for now
+# add_subdirectory(${CMAKE_SOURCE_DIR}/testbench)
 
 add_custom_target(list ALL COMMAND ${CMAKE_VHDL_COMPILER} -d DEPENDS ${VHDL_MODULE} ${VHDL_TEST_MODULE})
 set(CTEST_OUTPUT_ON_FAILURE 1)
