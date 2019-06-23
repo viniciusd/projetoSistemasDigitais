@@ -1,4 +1,4 @@
-FROM ghdl/ghdl:latest
+FROM ghdl/ghdl
 
 MAINTAINER Mario Barbareschi <mario.barbareschi@unina.it>
 
