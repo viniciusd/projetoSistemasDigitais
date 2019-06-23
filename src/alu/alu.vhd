@@ -60,6 +60,7 @@ begin
             if (A/=B) then
             comp := '1';
             end if;
+        when others => null;
     end case;
     return comp;
 end function;
