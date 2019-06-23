@@ -31,10 +31,10 @@ shared variable tmp : signed(8 downto 0);
 
 function compare(A: signed(7 downto 0);
                     B: signed(7 downto 0);
-                    operation: std_logic_vector(4 downto 0)) return std_logic is
+                    operation: std_logic_vector(2 downto 0)) return std_logic is
     variable comp : std_logic;
 begin
-    comp := 0;
+    comp := '0';
         case (operation) is
         when "000" => --A=B
             if (A=B) then
