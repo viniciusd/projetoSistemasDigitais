@@ -18,15 +18,15 @@ end mux8_1;
 
 architecture arch_mux8_1 of mux8_1 is
 begin
-
 	WITH switch SELECT
-	  y <= e0 WHEN "000",
-	       e1 WHEN "001",
-	       e2 WHEN "010",
-	       e3 WHEN "011",
-	       e4 WHEN "100",
-	       e5 WHEN "101",
-	       e6 WHEN "110",
-	       e7 WHEN "111"
+	  y <=             e0 WHEN "000",
+                       e1  WHEN "001",
+                       e2  WHEN "010",
+                       e3  WHEN "011",
+                       e4  WHEN "100",
+                       e5  WHEN "101",
+                       e6  WHEN "110",
+                       e7  WHEN "111",
+           (others => '0') WHEN others;
 	  ;
 end arch_mux8_1;
