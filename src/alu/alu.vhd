@@ -27,7 +27,7 @@ architecture behavioral of alu is
 
 -- Declarations (optional)
 signal alu_result : signed(7 downto 0);
-signal tmp : std_logic_vector(8 downto 0);
+signal tmp : signed(8 downto 0);
 signal compare_sel : std_logic_vector(2 downto 0); --compare selector	
 
 begin
@@ -90,6 +90,6 @@ begin
 	end case;
 end process;
 ALU_OUT <= ALU_result;
-tmp <= ('0' & A) + ('0' & B);
-Carryout <= tmp(8); --Carryout flag
+tmp <= A + B;
+carryout <= tmp(8); --Carryout flag
 end behavioral;
