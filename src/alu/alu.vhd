@@ -104,7 +104,7 @@ begin
 	end case;
     ALU_OUT <= ALU_result;
     tmp := A + B;
-    carryout := tmp(8); --Carryout flag
+    carryout <= tmp(8); --Carryout flag
 end process;
 
 end behavioral;
