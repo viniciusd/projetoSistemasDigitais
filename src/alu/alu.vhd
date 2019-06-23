@@ -101,8 +101,9 @@ begin
 	when others =>
 		alu_result := x"00";
 	end case;
+    ALU_OUT <= ALU_result;
+    tmp := A + B;
+    carryout := tmp(8); --Carryout flag
 end process;
-ALU_OUT <= ALU_result;
-tmp := A + B;
-carryout := tmp(8); --Carryout flag
+
 end behavioral;
