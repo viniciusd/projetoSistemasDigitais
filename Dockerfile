@@ -1,4 +1,4 @@
-FROM ghdl/ghdl
+FROM ghdl/ghdl:ubuntu18-llvm-5.0
 
 MAINTAINER Mario Barbareschi <mario.barbareschi@unina.it>
 
