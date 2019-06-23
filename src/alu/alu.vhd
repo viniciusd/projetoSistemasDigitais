@@ -12,11 +12,11 @@ generic
 port
 (
 	-- Input ports
-	A, B		: in std_logic_vector(7 downto 0);
+	A, B		: in signed(7 downto 0);
 	ALU_SEL	: in std_logic_vector(4 downto 0);		
 		
 	-- Output ports
-	ALU_OUT	: out std_logic_vector(7 downto 0);
+	ALU_OUT	: out signed (7 downto 0);
 	carryout	: out std_logic; --Flag carryout;
 	alu_flags: out std_logic := '0'
 );
