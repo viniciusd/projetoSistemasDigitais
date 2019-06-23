@@ -35,7 +35,7 @@ function compare(A: signed(7 downto 0);
     variable comp : std_logic;
 begin
     comp := '0';
-        case (operation) is
+    case (operation) is
         when "000" => --A=B
             if (A=B) then
             comp := '1';
@@ -60,7 +60,7 @@ begin
             if (A/=B) then
             comp := '1';
             end if;
-        end case;
+    end case;
     return comp;
 end function;
 
