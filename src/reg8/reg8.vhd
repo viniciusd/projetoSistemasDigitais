@@ -27,7 +27,7 @@ begin
                 output <= (others => '0');
             elsif (load='1') then
                 output <= input;
-            end if
+            end if;
 		end if;
 	end process;
 end reg8_arch;
