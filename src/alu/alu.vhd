@@ -26,7 +26,7 @@ end alu;
 architecture behavioral of alu is
 
 -- Declarations (optional)
-signal alu_result : std_logic_vector(7 downto 0);
+signal alu_result : signed(7 downto 0);
 signal tmp : std_logic_vector(8 downto 0);
 signal compare_sel : std_logic_vector(2 downto 0); --compare selector	
 
