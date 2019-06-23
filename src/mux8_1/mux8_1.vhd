@@ -27,6 +27,6 @@ begin
                        e5  WHEN "101",
                        e6  WHEN "110",
                        e7  WHEN "111",
-           (others => '0') WHEN others;
+           (others => '0') WHEN others
 	  ;
 end arch_mux8_1;
