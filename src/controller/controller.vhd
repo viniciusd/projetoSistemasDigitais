@@ -1,7 +1,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity four_state_moore_state_machine is
+entity controller is
 
 	port(
 		clk	     : in	std_logic;
@@ -29,7 +29,7 @@ entity four_state_moore_state_machine is
 
 end entity;
 
-architecture rtl of four_state_moore_state_machine is
+architecture controller_arch of controller is
 
     type state_type is (inicio, busca, decodificacao,
                         noop, load, store, set, swap,
@@ -246,4 +246,4 @@ begin
                 pc_ld <= 1;
 		end case;
 	end process;
-end rtl;
+end controller_arch;
