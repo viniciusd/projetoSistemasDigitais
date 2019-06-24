@@ -23,6 +23,7 @@ entity controller is
 		alu_rb_switch        : out std_logic_vector (2 downto 0);
 		io_switch            : out std_logic_vector (1 downto 0);
 		reg_load             : out std_logic;
+		reg_reset            : out std_logic;
 		D_rd                 : out std_logic;
 		D_wr                 : out std_logic
 	);
@@ -155,9 +156,12 @@ begin
 
             when swap          => null; -- TODO
             when move          => null; -- TODO
-            when copy          => null; -- TODO
-            when drop          => null; -- TODO
-
+            when copy          =>
+                io_switch <= "11"
+                register_file_switch <= "11";
+                reg_load <= '1';
+            when drop          =>
+                reg_reset <= '1';
             when add           =>
                 alu_switch <= "01000";
                 io_switch <= "10";
