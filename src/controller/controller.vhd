@@ -157,7 +157,7 @@ begin
             when swap          => null; -- TODO
             when move          => null; -- TODO
             when copy          =>
-                io_switch <= "11"
+                io_switch <= "11";
                 register_file_switch <= "11";
                 reg_load <= '1';
             when drop          =>
