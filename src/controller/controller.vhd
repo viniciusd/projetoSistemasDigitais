@@ -13,7 +13,7 @@ entity controller is
 		
 		output               : out	std_logic_vector(1 downto 0);
         pc_switch            : out std_logic;
-		pcin_cr              : out std_logic;
+		pc_incr              : out std_logic;
 		pc_ld                : out std_logic;
 		ir_load              : out std_logic;
 		pilha_ld             : out std_logic;
@@ -38,10 +38,10 @@ architecture controller_arch of controller is
                         add, sub, inc, dec, inv, compl,
 
                         l_shift, r_shift, bit_or, bit_and,
-                        bit_xor, bit_set, bit_clear, in_, out_,
+                        bit_xor, bit_set, bit_clear, in_operation, out_operation,
 
-                        compare, and_, or_, xor_, jump_if, jump_else,
-                        jump, call, return_
+                        compare, logical_and, logical_or, logical_xor, jump_if, jump_else,
+                        jump, call, ret
 	);
 	signal state   : state_type;
 
@@ -55,7 +55,7 @@ begin
                 when inicio =>
                     state <= busca;
                 when busca =>
-                    pcin_cr <= 1;
+                    pc_incr <= 1;
                 when decodificacao =>
                     case opcode is
                         when "00000" =>
@@ -101,17 +101,17 @@ begin
                         when "10100" =>
                             state <= bit_clear;
                         when "10101" =>
-                            state <= in_;
+                            state <= in_operation;
                         when "10110" =>
-                            state <= out_;
+                            state <= out_operation;
                         when "10111" =>
                             state <= compare;
                         when "11000" =>
-                            state <= and_;
+                            state <= logical_and;
                         when "11001" =>
-                            state <= or_;
+                            state <= logical_or;
                         when "11010" =>
-                            state <= xor_;
+                            state <= logical_xor;
                         when "11011" =>
                             state <= jump_if;
                         when "11100" =>
@@ -121,7 +121,7 @@ begin
                         when "11110" =>
                             state <= call;
                         when "11111" =>
-                            state <= return_;
+                            state <= ret;
                         end case;
                     when others =>
                         state <= busca;
@@ -134,7 +134,7 @@ begin
         case state is
             when busca         =>
                 ir_load <= 1;
-                pcin_cr <= 1;
+                pc_incr <= 1;
             when decodificacao =>
                 opcode <= input;
             when load          =>
@@ -210,18 +210,18 @@ begin
                 reg_load <= 1;
             when bit_set       => null; -- TODO
             when bit_clear     => null; -- TODO
-            when in_           => null; -- TODO
-            when out_          => null; -- TODO
+            when in_operation  => null; -- TODO
+            when out_operation => null; -- TODO
             when compare       => null; -- TODO
                 alu_switch <= '10111';
                 io_switch <= '10';
-            when and_          =>
+            when logical_and   =>
                 alu_switch <= '11011';
                 io_switch <= '10';
-            when or_           =>
+            when logical_or    =>
                 alu_switch <= '11100';
                 io_switch <= '10';
-            when xor_          =>
+            when logical_xor   =>
                 alu_switch <= '11101';
                 io_switch <= '10';
             when jump_if       =>
@@ -241,7 +241,7 @@ begin
                 pilha_ld <= 1;
                 pc_switch <= 0;
                 pc_ld <= 1;
-            when return_       =>
+            when ret           =>
                 pc_switch <= 1;
                 pc_ld <= 1;
 		end case;
