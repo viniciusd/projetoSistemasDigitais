@@ -217,7 +217,7 @@ begin
             when bit_clear     => null; -- TODO
             when in_operation  => null; -- TODO
             when out_operation => null; -- TODO
-            when compare       => null; -- TODO
+            when compare       =>
                 alu_switch <= "10111";
                 io_switch <= "10";
             when logical_and   =>
