@@ -13,7 +13,7 @@ port
 (
 	-- Input ports
     A, B    : in signed(7 downto 0);
-	ALU_SEL	: in std_logic_vector(4 downto 0);
+	ALU_SEL	: in std_logic_vector(4 downto 0)
     compare_sel : in std_logic_vector(2 downto 0);
 		
 	-- Output ports
