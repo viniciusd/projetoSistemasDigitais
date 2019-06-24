@@ -13,7 +13,7 @@ entity four_state_moore_state_machine is
 		
 		output               : out	std_logic_vector(1 downto 0);
         pc_switch            : out std_logic;
-		pc_incr              : out std_logic;
+		pcin_cr              : out std_logic;
 		pc_ld                : out std_logic;
 		ir_load              : out std_logic;
 		pilha_ld             : out std_logic;
@@ -38,10 +38,10 @@ architecture rtl of four_state_moore_state_machine is
                         add, sub, inc, dec, inv, compl,
 
                         l_shift, r_shift, bit_or, bit_and,
-                        bit_xor, bit_set, bit_clear, _in, _out,
+                        bit_xor, bit_set, bit_clear, in_, out_,
 
-                        compare, _and, _or, _xor, jump_if, jump_else,
-                        jump, call, _return
+                        compare, and_, or_, xor_, jump_if, jump_else,
+                        jump, call, return_
 	);
 	signal state   : state_type;
 
@@ -55,73 +55,73 @@ begin
                 when inicio =>
                     state <= busca;
                 when busca =>
-                    pc_incr <= 1;
+                    pcin_cr <= 1;
                 when decodificacao =>
                     case opcode is
-                        when '00000' =>
+                        when "00000" =>
                             state <= noop;
-                        when '00001' =>
+                        when "00001" =>
                             state <= load;
-                        when '00010' =>
+                        when "00010" =>
                              state <= store;
-                        when '00011' =>
+                        when "00011" =>
                              state <= set;
-                        when '00100' =>
+                        when "00100" =>
                              state <= swap;
-                        when '00101' =>
+                        when "00101" =>
                             state <= move;
-                        when '00110' =>
+                        when "00110" =>
                             state <= copy;
-                        when '00111' =>
+                        when "00111" =>
                             state <= drop;
-                        when '01000' =>
+                        when "01000" =>
                             state <= add;
-                        when '01001' =>
+                        when "01001" =>
                             state <= sub;
-                        when '01010' =>
+                        when "01010" =>
                             state <= inc;
-                        when '01011' =>
+                        when "01011" =>
                             state <= dec;
-                        when '01100' =>
+                        when "01100" =>
                             state <= inv;
-                        when '01101' =>
+                        when "01101" =>
                             state <= compl;
-                        when '01110' =>
+                        when "01110" =>
                             state <= l_shift;
-                        when '01111' =>
+                        when "01111" =>
                             state <= r_shift;
-                        when '10000' =>
+                        when "10000" =>
                             state <= bit_or;
-                        when '10001' =>
+                        when "10001" =>
                             state <= bit_and;
-                        when '10010' =>
+                        when "10010" =>
                             state <= bit_xor;
-                        when '10011' =>
+                        when "10011" =>
                             state <= bit_set;
-                        when '10100' =>
+                        when "10100" =>
                             state <= bit_clear;
-                        when '10101' =>
-                            state <= _in;
-                        when '10110' =>
-                            state <= _out;
-                        when '10111' =>
+                        when "10101" =>
+                            state <= in_;
+                        when "10110" =>
+                            state <= out_;
+                        when "10111" =>
                             state <= compare;
-                        when '11000' =>
-                            state <= _and;
-                        when '11001' =>
-                            state <= _or;
-                        when '11010' =>
-                            state <= _xor;
-                        when '11011' =>
+                        when "11000" =>
+                            state <= and_;
+                        when "11001" =>
+                            state <= or_;
+                        when "11010" =>
+                            state <= xor_;
+                        when "11011" =>
                             state <= jump_if;
-                        when '11100' =>
+                        when "11100" =>
                             state <= jump_else;
-                        when '11101' =>
+                        when "11101" =>
                             state <= jump;
-                        when '11110' =>
+                        when "11110" =>
                             state <= call;
-                        when '11111' =>
-                            state <= _return;
+                        when "11111" =>
+                            state <= return_;
                         end case;
                     when others =>
                         state <= busca;
@@ -134,7 +134,7 @@ begin
         case state is
             when busca         =>
                 ir_load <= 1;
-                pc_incr <= 1;
+                pcin_cr <= 1;
             when decodificacao =>
                 opcode <= input;
             when load          =>
@@ -210,18 +210,18 @@ begin
                 reg_load <= 1;
             when bit_set       => null; -- TODO
             when bit_clear     => null; -- TODO
-            when _in           => null; -- TODO
-            when _out          => null; -- TODO
+            when in_           => null; -- TODO
+            when out_          => null; -- TODO
             when compare       => null; -- TODO
                 alu_switch <= '10111';
                 io_switch <= '10';
-            when _and          =>
+            when and_          =>
                 alu_switch <= '11011';
                 io_switch <= '10';
-            when _or           =>
+            when or_           =>
                 alu_switch <= '11100';
                 io_switch <= '10';
-            when _xor          =>
+            when xor_          =>
                 alu_switch <= '11101';
                 io_switch <= '10';
             when jump_if       =>
@@ -241,7 +241,7 @@ begin
                 pilha_ld <= 1;
                 pc_switch <= 0;
                 pc_ld <= 1;
-            when _return       =>
+            when return_       =>
                 pc_switch <= 1;
                 pc_ld <= 1;
 		end case;
