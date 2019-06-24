@@ -3,9 +3,9 @@ use ieee.std_logic_1164.all;
 
 entity controller is
     port (
-        clk	     : in std_logic;
-        input	 : in std_logic_vector (4 downto 0);
-        reset	 : in std_logic;
+        clk      : in std_logic;
+        input    : in std_logic_vector (4 downto 0);
+        reset    : in std_logic;
         cmp      : in std_logic;
 
         opcode : buffer std_logic_vector (4 downto 0);
