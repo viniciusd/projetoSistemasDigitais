@@ -6,6 +6,6 @@ before_install:
 - docker info
 - docker build -t vhdl_ci .
 script:
-- docker run vhdl_ci --mount source=.,target=/opt /bin/bash -c "mkdir /opt/build && cd /opt/build && cmake .. && make all test"
+- docker run --mount source=.,target=/opt vhdl_ci /bin/bash -c "mkdir /opt/build && cd /opt/build && cmake .. && make all test"
 notifications:
     email: false
