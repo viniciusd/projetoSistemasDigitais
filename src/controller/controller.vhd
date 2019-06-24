@@ -55,7 +55,7 @@ begin
                 when inicio =>
                     state <= busca;
                 when busca =>
-                    pc_incr <= 1;
+                    pc_incr <= '1';
                 when decodificacao =>
                     case opcode is
                         when "00000" =>
@@ -132,21 +132,25 @@ begin
     process (state)
     begin
         case state is
+            when inicio        =>
+                null;
             when busca         =>
-                ir_load <= 1;
-                pc_incr <= 1;
+                ir_load <= '1';
+                pc_incr <= '1';
             when decodificacao =>
                 opcode <= input;
+            when noop          =>
+                null;
             when load          =>
-                D_rd <= 1;
+                D_rd <= '1';
                 register_file_switch <= "01";
-                reg_load <= 1;
+                reg_load <= '1';
             when store         =>
-                D_wr <= 1;
+                D_wr <= '1';
                 io_switch  <= "01";
             when set           =>
                 register_file_switch <= "10";
-                reg_load <= 1;
+                reg_load <= '1';
 
             when swap          => null; -- TODO
             when move          => null; -- TODO
@@ -157,57 +161,57 @@ begin
                 alu_switch <= "01000";
                 io_switch <= "10";
                 register_file_switch <= "00";
-                reg_load <= 1;
+                reg_load <= '1';
             when sub           =>
                 alu_switch <= "01001";
                 io_switch <= "10";
                 register_file_switch <= "00";
-                reg_load <= 1;
+                reg_load <= '1';
             when inc           =>
                 alu_switch <= "01010";
                 io_switch <= "10";
                 register_file_switch <= "00";
-                reg_load <= 1;
+                reg_load <= '1';
             when dec           =>
                 alu_switch <= "01011";
                 io_switch <= "10";
                 register_file_switch <= "00";
-                reg_load <= 1;
+                reg_load <= '1';
             when inv           =>
                 alu_switch <= "01100";
                 io_switch <= "10";
                 register_file_switch <= "00";
-                reg_load <= 1;
+                reg_load <= '1';
             when compl         =>
                 alu_switch <= "01101";
                 io_switch <= "10";
                 register_file_switch <= "00";
-                reg_load <= 1;
+                reg_load <= '1';
             when l_shift       =>
                 alu_switch <= "01110";
                 io_switch <= "10";
                 register_file_switch <= "00";
-                reg_load <= 1;
+                reg_load <= '1';
             when r_shift       =>
                 alu_switch <= "01111";
                 io_switch <= "10";
                 register_file_switch <= "00";
-                reg_load <= 1;
+                reg_load <= '1';
             when bit_or        =>
                 alu_switch <= "11001";
                 io_switch <= "10";
                 register_file_switch <= "00";
-                reg_load <= 1;
+                reg_load <= '1';
             when bit_and       =>
                 alu_switch <= "11000";
                 io_switch <= "10";
                 register_file_switch <= "00";
-                reg_load <= 1;
+                reg_load <= '1';
             when bit_xor       =>
                 alu_switch <= "11010";
                 io_switch <= "10";
                 register_file_switch <= "00";
-                reg_load <= 1;
+                reg_load <= '1';
             when bit_set       => null; -- TODO
             when bit_clear     => null; -- TODO
             when in_operation  => null; -- TODO
@@ -226,24 +230,24 @@ begin
                 io_switch <= "10";
             when jump_if       =>
                 if (cmp = '1') then
-                    pc_switch <= 0;
-                    pc_ld <= 1;
+                    pc_switch <= '0';
+                    pc_ld <= '1';
                 end if;
             when jump_else     =>
                 if (cmp = '0') then
-                    pc_switch <= 0;
-                    pc_ld <= 1;
+                    pc_switch <= '0';
+                    pc_ld <= '1';
                 end if;
             when jump          =>
-                pc_switch <= 0;
-                pc_ld <= 1;
+                pc_switch <= '0';
+                pc_ld <= '1';
             when call          =>
-                pilha_ld <= 1;
-                pc_switch <= 0;
-                pc_ld <= 1;
+                pilha_ld <= '1';
+                pc_switch <= '0';
+                pc_ld <= '1';
             when ret           =>
-                pc_switch <= 1;
-                pc_ld <= 1;
+                pc_switch <= '1';
+                pc_ld <= '1';
 		end case;
 	end process;
 end controller_arch;
