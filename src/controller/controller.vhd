@@ -122,11 +122,12 @@ begin
                             state <= call;
                         when "11111" =>
                             state <= ret;
-                        end case;
-                    when others =>
-                        state <= busca;
-			end case;
-		end if;
+                        when others => null;
+                    end case;
+                when others =>
+                    state <= busca;
+            end case;
+        end if;
 	end process;
 
     process (state)
