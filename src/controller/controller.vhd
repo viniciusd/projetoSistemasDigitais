@@ -33,12 +33,12 @@ architecture rtl of four_state_moore_state_machine is
 
     type state_type is (inicio, busca, decodificacao,
                         noop, load, store, set, swap,
-                        move, copy, drop
+                        move, copy, drop,
 
-                        add, sub, inc, dec, inv, compl
+                        add, sub, inc, dec, inv, compl,
 
                         l_shift, r_shift, bit_or, bit_and,
-                        bit_xor, bit_set, bit_clear, _in, _out
+                        bit_xor, bit_set, bit_clear, _in, _out,
 
                         compare, _and, _or, _xor, jump_if, jump_else,
                         jump, call, _return
