@@ -17,7 +17,7 @@ entity controller is
         alu_switch           : out std_logic_vector (4 downto 0);
         reg_load             : out std_logic_vector (7 downto 0);
         reg_reset            : out std_logic_vector (7 downto 0);
-        io_load              : out std_logic_vector (1 downto 0);
+        io_load              : out std_logic_vector (3 downto 0);
         D_rd                 : out std_logic;
         D_wr                 : out std_logic
     );
