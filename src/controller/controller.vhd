@@ -47,7 +47,7 @@ architecture controller_arch of controller is
 
 function load_vector(reg: std_logic_vector(2 downto 0)
                     ) return std_logic_vector is
-    variable comp : std_logic_vector(7 downto 0);
+    variable load : std_logic_vector(7 downto 0);
 begin
     load := "00000000";
     case (reg) is
