@@ -47,29 +47,8 @@ architecture controller_arch of controller is
 
 function reg_load_vector(reg: std_logic_vector(2 downto 0)
                     ) return std_logic_vector is
-    variable load : std_logic_vector(7 downto 0);
 begin
-    load := "00000000";
-    case (reg) is
-        when "000" =>
-            load := (0 => '1', others => '0');
-        when "001" =>
-            load := (1 => '1', others => '0');
-        when "010" =>
-            load := (2 => '1', others => '0');
-        when "011" =>
-            load := (3 => '1', others => '0');
-        when "100" =>
-            load := (4 => '1', others => '0');
-        when "101" =>
-            load := (5 => '1', others => '0');
-        when "110" =>
-            load := (6 => '1', others => '0');
-        when "111" =>
-            load := (7 => '1', others => '0');
-        when others => null;
-    end case;
-    return load;
+    return (to_integer(unsigned(reg)) => '1', others => '0');
 end function;
 
 begin
