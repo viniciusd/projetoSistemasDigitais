@@ -189,7 +189,7 @@ begin
                 register_file_switch <= "11";
                 reg_load <= load_vector(reg1);
             when drop          =>
-                reg_reset <= '1';
+                reg_reset <= load_vector(reg1);
             when add           =>
                 alu_switch <= "01000";
                 register_file_switch <= "00";
