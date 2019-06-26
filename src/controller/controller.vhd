@@ -20,7 +20,6 @@ entity controller is
         alu_switch           : out std_logic_vector (4 downto 0);
         alu_ra_switch        : out std_logic_vector (2 downto 0);
         alu_rb_switch        : out std_logic_vector (2 downto 0);
-        io_switch            : out std_logic_vector (1 downto 0);
         reg_load             : out std_logic;
         reg_reset            : out std_logic;
         D_rd                 : out std_logic;
@@ -147,7 +146,6 @@ begin
                 reg_load <= '1';
             when store         =>
                 D_wr <= '1';
-                io_switch  <= "01";
             when set           =>
                 register_file_switch <= "10";
                 reg_load <= '1';
@@ -158,64 +156,52 @@ begin
                 reg_load <= '1';
             when move          => null; -- TODO
             when copy          =>
-                io_switch <= "11";
                 register_file_switch <= "11";
                 reg_load <= '1';
             when drop          =>
                 reg_reset <= '1';
             when add           =>
                 alu_switch <= "01000";
-                io_switch <= "10";
                 register_file_switch <= "00";
                 reg_load <= '1';
             when sub           =>
                 alu_switch <= "01001";
-                io_switch <= "10";
                 register_file_switch <= "00";
                 reg_load <= '1';
             when inc           =>
                 alu_switch <= "01010";
-                io_switch <= "10";
                 register_file_switch <= "00";
                 reg_load <= '1';
             when dec           =>
                 alu_switch <= "01011";
-                io_switch <= "10";
                 register_file_switch <= "00";
                 reg_load <= '1';
             when inv           =>
                 alu_switch <= "01100";
-                io_switch <= "10";
                 register_file_switch <= "00";
                 reg_load <= '1';
             when compl         =>
                 alu_switch <= "01101";
-                io_switch <= "10";
                 register_file_switch <= "00";
                 reg_load <= '1';
             when l_shift       =>
                 alu_switch <= "01110";
-                io_switch <= "10";
                 register_file_switch <= "00";
                 reg_load <= '1';
             when r_shift       =>
                 alu_switch <= "01111";
-                io_switch <= "10";
                 register_file_switch <= "00";
                 reg_load <= '1';
             when bit_or        =>
                 alu_switch <= "11001";
-                io_switch <= "10";
                 register_file_switch <= "00";
                 reg_load <= '1';
             when bit_and       =>
                 alu_switch <= "11000";
-                io_switch <= "10";
                 register_file_switch <= "00";
                 reg_load <= '1';
             when bit_xor       =>
                 alu_switch <= "11010";
-                io_switch <= "10";
                 register_file_switch <= "00";
                 reg_load <= '1';
             when bit_set       => null; -- TODO
@@ -224,16 +210,12 @@ begin
             when out_operation => null; -- TODO
             when compare       =>
                 alu_switch <= "10111";
-                io_switch <= "10";
             when logical_and   =>
                 alu_switch <= "11011";
-                io_switch <= "10";
             when logical_or    =>
                 alu_switch <= "11100";
-                io_switch <= "10";
             when logical_xor   =>
                 alu_switch <= "11101";
-                io_switch <= "10";
             when jump_if       =>
                 if (cmp = '1') then
                     pc_switch <= '0';
