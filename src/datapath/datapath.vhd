@@ -19,7 +19,7 @@ entity datapath is
         D_wr                 : in std_logic;
 
         instruction          : out std_logic_vector (10 downto 0);
-        cmp                  : out std_logic;
+        cmp                  : out std_logic
     );
 end entity;
 
@@ -91,7 +91,7 @@ ARCHITECTURE datapath_arch OF datapath IS
         );
     END COMPONENT reg8;
 
-    SIGNAL program_statement    : std_logic_vector (15 downto 0)
+    SIGNAL program_statement    : std_logic_vector (15 downto 0);
     SIGNAL I_PC                 : std_logic_vector (10 downto 0);
     SIGNAL O_PC                 : std_logic_vector (10 downto 0);
     SIGNAL stack_value          : std_logic_vector (10 downto 0);
