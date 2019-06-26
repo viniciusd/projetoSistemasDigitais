@@ -24,6 +24,7 @@ entity controller is
         alu_rb_switch        : out std_logic_vector (2 downto 0);
         reg_load             : out std_logic_vector (7 downto 0);
         reg_reset            : out std_logic_vector (7 downto 0);
+        io_load              : out std_logic_vector (1 downto 0);
         D_rd                 : out std_logic;
         D_wr                 : out std_logic
     );
@@ -71,6 +72,27 @@ begin
     end case;
     return load;
 end function;
+
+function io_load_vector(reg: std_logic_vector(1 downto 0)
+                    ) return std_logic_vector is
+    variable load : std_logic_vector(3 downto 0);
+begin
+    load := "0000";
+    case (reg) is
+        when "00" =>
+            load := (0 => '1', others => '0');
+        when "01" =>
+            load := (1 => '1', others => '0');
+        when "10" =>
+            load := (2 => '1', others => '0');
+        when "11" =>
+            load := (3 => '1', others => '0');
+        when others => null;
+    end case;
+    return load;
+end function;
+
+alias io_reg is reg2(2 downto 1);
 
 begin
     process (clk, reset)
@@ -239,8 +261,11 @@ begin
                 reg_load <= reg_load_vector(reg1);
             when bit_set       => null; -- TODO
             when bit_clear     => null; -- TODO
-            when in_operation  => null; -- TODO
-            when out_operation => null; -- TODO
+            when in_operation  =>
+                reg_load <= reg_load_vector(reg1);
+                register_file_switch <= "100";
+            when out_operation => null;
+                io_load <= io_load_vector(io_reg);
             when compare       =>
                 alu_switch <= "10111";
             when logical_and   =>
