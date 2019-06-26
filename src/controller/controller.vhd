@@ -153,6 +153,9 @@ begin
                 reg_load <= '1';
 
             when swap          => null; -- TODO
+                alu_switch <= "11110";
+                register_file_switch <= "00";
+                reg_load <= '1';
             when move          => null; -- TODO
             when copy          =>
                 io_switch <= "11";
