@@ -4,11 +4,13 @@ use ieee.std_logic_1164.all;
 entity controller is
     port (
         clk      : in std_logic;
-        input    : in std_logic_vector (4 downto 0);
+        input    : in std_logic_vector (10 downto 0);
         reset    : in std_logic;
         cmp      : in std_logic;
 
         opcode : buffer std_logic_vector (4 downto 0);
+        reg1   : buffer std_logic_vector (2 downto 0);
+        reg2   : buffer std_logic_vector (2 downto 0);
 
         output               : out std_logic_vector(1 downto 0);
         pc_switch            : out std_logic;
@@ -20,8 +22,8 @@ entity controller is
         alu_switch           : out std_logic_vector (4 downto 0);
         alu_ra_switch        : out std_logic_vector (2 downto 0);
         alu_rb_switch        : out std_logic_vector (2 downto 0);
-        reg_load             : out std_logic;
-        reg_reset            : out std_logic;
+        reg_load             : out std_logic_vector (7 downto 0);
+        reg_reset            : out std_logic_vector (7 downto 0);
         D_rd                 : out std_logic;
         D_wr                 : out std_logic
     );
@@ -42,6 +44,33 @@ architecture controller_arch of controller is
                         jump, call, ret
 	);
 	signal state   : state_type;
+
+function load_vector(reg: std_logic_vector(2 downto 0);
+                    ) return std_logic_vector(7 downto 0) is
+    variable comp : std_logic;
+begin
+    load := "00000000";
+    case (reg) is
+        when "000" =>
+            load := (0 => '1', others => '0');
+        when "001" =>
+            load := (1 => '1', others => '0');
+        when "010" =>
+            load := (2 => '1', others => '0');
+        when "011" =>
+            load := (3 => '1', others => '0');
+        when "100" =>
+            load := (4 => '1', others => '0');
+        when "101" =>
+            load := (5 => '1', others => '0');
+        when "110" =>
+            load := (6 => '1', others => '0');
+        when "111" =>
+            load := (7 => '1', others => '0');
+        when others => null;
+    end case;
+    return load;
+end function;
 
 begin
     process (clk, reset)
@@ -137,73 +166,74 @@ begin
                 ir_load <= '1';
                 pc_incr <= '1';
             when decodificacao =>
-                opcode <= input;
+                opcode <= input(10 downto 6);
+                reg1   <= input(5 downto 3);
+                reg2   <= input(2 downto 0);
             when noop          =>
                 null;
             when load          =>
                 D_rd <= '1';
                 register_file_switch <= "01";
-                reg_load <= '1';
+                reg_load <= load_vector(reg1);
             when store         =>
                 D_wr <= '1';
             when set           =>
                 register_file_switch <= "10";
-                reg_load <= '1';
-
-            when swap          => null; -- TODO
+                reg_load <= load_vector(reg1);
+            when swap          =>
                 alu_switch <= "11110";
                 register_file_switch <= "00";
-                reg_load <= '1';
+                reg_load <= load_vector(reg1);
             when move          => null; -- TODO
             when copy          =>
                 register_file_switch <= "11";
-                reg_load <= '1';
+                reg_load <= load_vector(reg1);
             when drop          =>
                 reg_reset <= '1';
             when add           =>
                 alu_switch <= "01000";
                 register_file_switch <= "00";
-                reg_load <= '1';
+                reg_load <= load_vector(reg1);
             when sub           =>
                 alu_switch <= "01001";
                 register_file_switch <= "00";
-                reg_load <= '1';
+                reg_load <= load_vector(reg1);
             when inc           =>
                 alu_switch <= "01010";
                 register_file_switch <= "00";
-                reg_load <= '1';
+                reg_load <= load_vector(reg1);
             when dec           =>
                 alu_switch <= "01011";
                 register_file_switch <= "00";
-                reg_load <= '1';
+                reg_load <= load_vector(reg1);
             when inv           =>
                 alu_switch <= "01100";
                 register_file_switch <= "00";
-                reg_load <= '1';
+                reg_load <= load_vector(reg1);
             when compl         =>
                 alu_switch <= "01101";
                 register_file_switch <= "00";
-                reg_load <= '1';
+                reg_load <= load_vector(reg1);
             when l_shift       =>
                 alu_switch <= "01110";
                 register_file_switch <= "00";
-                reg_load <= '1';
+                reg_load <= load_vector(reg1);
             when r_shift       =>
                 alu_switch <= "01111";
                 register_file_switch <= "00";
-                reg_load <= '1';
+                reg_load <= load_vector(reg1);
             when bit_or        =>
                 alu_switch <= "11001";
                 register_file_switch <= "00";
-                reg_load <= '1';
+                reg_load <= load_vector(reg1);
             when bit_and       =>
                 alu_switch <= "11000";
                 register_file_switch <= "00";
-                reg_load <= '1';
+                reg_load <= load_vector(reg1);
             when bit_xor       =>
                 alu_switch <= "11010";
                 register_file_switch <= "00";
-                reg_load <= '1';
+                reg_load <= load_vector(reg1);
             when bit_set       => null; -- TODO
             when bit_clear     => null; -- TODO
             when in_operation  => null; -- TODO

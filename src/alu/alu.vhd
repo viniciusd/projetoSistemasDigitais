@@ -30,8 +30,9 @@ shared variable alu_result : signed(7 downto 0);
 shared variable tmp : signed(8 downto 0);
 
 function compare(A: signed(7 downto 0);
-                    B: signed(7 downto 0);
-                    operation: std_logic_vector(2 downto 0)) return std_logic is
+                 B: signed(7 downto 0);
+                 operation: std_logic_vector(2 downto 0)
+                ) return std_logic is
     variable comp : std_logic;
 begin
     comp := '0';
