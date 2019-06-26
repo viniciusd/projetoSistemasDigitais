@@ -49,7 +49,7 @@ ARCHITECTURE datapath_arch OF datapath IS
             load         : in std_logic;
 
             -- Output ports
-                program_statement : out std_logic_vector (15 downto 0)
+            program_statement : out std_logic_vector (15 downto 0)
         );
     END COMPONENT ir;
 
@@ -91,6 +91,11 @@ ARCHITECTURE datapath_arch OF datapath IS
         );
     END COMPONENT reg8;
 
+    SIGNAL program_statement    : std_logic_vector (15 downto 0)
+    SIGNAL I_PC                 : std_logic_vector (10 downto 0);
+    SIGNAL O_PC                 : std_logic_vector (10 downto 0);
+    SIGNAL stack_value          : std_logic_vector (10 downto 0);
+
     SIGNAL data_memory_rd       : std_logic_vector (7 downto 0);
 
     SIGNAL reg_input            : std_logic_vector (7 downto 0);
@@ -105,29 +110,32 @@ ARCHITECTURE datapath_arch OF datapath IS
     SIGNAL reg7_output          : std_logic_vector (7 downto 0);
     SIGNAL reg7_output          : std_logic_vector (7 downto 0);
 
-    SIGNAL reg1                 : std_logic_vector (2 downto 0);
     SIGNAL reg_mux_out_A_output : std_logic_vector (7 downto 0);
-    SIGNAL reg2                 : std_logic_vector (2 downto 0);
     SIGNAL reg_mux_out_B_output : std_logic_vector (7 downto 0);
     SIGNAL alu_ouptut           : std_logic_vector (7 downto 0);
     SIGNAL alu_carryout         : std_logic;
 
 BEGIN
-    reg_mux_in    : mux8_1 PORT MAP (alu_output, data_memory_rd, e2, reg_mux_out_A_output, e4, e5, e6, e7, reg_input);
-    reg0          : reg8   PORT MAP (load, reg_reset(0), clock, reg_input, reg0_output);
-    reg1          : reg8   PORT MAP (load, reg_reset(1), clock, reg_input, reg1_output);
-    reg2          : reg8   PORT MAP (load, reg_reset(2), clock, reg_input, reg2_output);
-    reg3          : reg8   PORT MAP (load, reg_reset(3), clock, reg_input, reg3_output);
-    reg4          : reg8   PORT MAP (load, reg_reset(4), clock, reg_input, reg4_output);
-    reg5          : reg8   PORT MAP (load, reg_reset(5), clock, reg_input, reg5_output);
-    reg6          : reg8   PORT MAP (load, reg_reset(6), clock, reg_input, reg6_output);
-    reg7          : reg8   PORT MAP (load, reg_reset(7), clock, reg_input, reg7_output);
-    reg_mux_out_A : mux8_1 PORT MAP (reg0_output, reg1_output, reg2_output, reg3_output,
-                                     reg4_output, reg5_output, reg6_output, reg7_output,
-                                     reg1, reg_mux_out_A_output);
-    reg_mux_out_B : mux8_1 PORT MAP (reg0_output, reg1_output, reg2_output, reg3_output,
-                                     reg4_output, reg5_output, reg6_output, reg7_output,
-                                     reg2, reg_mux_out_B_output);
-    alu           : alu    PORT MAP (reg_mux_out_A_output, reg_mux_out_B_output, alu_switch,
+    stack_reg     : reg8           PORT MAP (pilha_ld, reset, clock, O_PC, stack_value);
+    pc            : ProgramCounter PORT MAP (clock, pc_ld, pc_incr, reset, I_PC, O_PC);
+    pc_mux        : mux8_1         PORT MAP (IR, stack_value, e2, e3, e4, e5, e6, e7, I_PC);
+    ir            : ir             PORT MAP (PROGRAM_DATA, clock, ir_load, PROGRAM_STATEMENT);
+    reg_mux_in    : mux8_1         PORT MAP (alu_output, data_memory_rd, program_statement(7 downto 0),
+                                             reg_mux_out_A_output, e4, e5, e6, e7, reg_input);
+    reg0          : reg8           PORT MAP (load, reg_reset(0), clock, reg_input, reg0_output);
+    reg1          : reg8           PORT MAP (load, reg_reset(1), clock, reg_input, reg1_output);
+    reg2          : reg8           PORT MAP (load, reg_reset(2), clock, reg_input, reg2_output);
+    reg3          : reg8           PORT MAP (load, reg_reset(3), clock, reg_input, reg3_output);
+    reg4          : reg8           PORT MAP (load, reg_reset(4), clock, reg_input, reg4_output);
+    reg5          : reg8           PORT MAP (load, reg_reset(5), clock, reg_input, reg5_output);
+    reg6          : reg8           PORT MAP (load, reg_reset(6), clock, reg_input, reg6_output);
+    reg7          : reg8           PORT MAP (load, reg_reset(7), clock, reg_input, reg7_output);
+    reg_mux_out_A : mux8_1         PORT MAP (reg0_output, reg1_output, reg2_output, reg3_output,
+                                             reg4_output, reg5_output, reg6_output, reg7_output,
+                                             program_statement(10 downto 8), reg_mux_out_A_output);
+    reg_mux_out_B : mux8_1         PORT MAP (reg0_output, reg1_output, reg2_output, reg3_output,
+                                             reg4_output, reg5_output, reg6_output, reg7_output,
+                                             program_statement(7 downto 5), reg_mux_out_B_output);
+    alu           : alu            PORT MAP (reg_mux_out_A_output, reg_mux_out_B_output, alu_switch,
                                      COMPARE_SWITCH, alu_output, alu_carryout, cmp);
 END datapath_arch;
