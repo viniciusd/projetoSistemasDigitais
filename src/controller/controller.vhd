@@ -8,7 +8,6 @@ entity controller is
         reset    : in std_logic;
         cmp      : in std_logic;
 
-        output               : out std_logic_vector(1 downto 0);
         pc_switch            : out std_logic;
         pc_incr              : out std_logic;
         pc_ld                : out std_logic;
