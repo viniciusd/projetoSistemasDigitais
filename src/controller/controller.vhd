@@ -8,10 +8,6 @@ entity controller is
         reset    : in std_logic;
         cmp      : in std_logic;
 
-        opcode : buffer std_logic_vector (4 downto 0);
-        reg1   : buffer std_logic_vector (2 downto 0);
-        reg2   : buffer std_logic_vector (2 downto 0);
-
         output               : out std_logic_vector(1 downto 0);
         pc_switch            : out std_logic;
         pc_incr              : out std_logic;
@@ -92,7 +88,10 @@ begin
     return load;
 end function;
 
-alias io_reg is reg2(2 downto 1);
+alias opcode is input(10 downto 6);
+alias reg1   is input(5 downto 3);
+alias reg2   is input(2 downto 0);
+alias io_reg is input(2 downto 1);
 
 begin
     process (clk, reset)
@@ -188,9 +187,7 @@ begin
                 ir_load <= '1';
                 pc_incr <= '1';
             when decodificacao =>
-                opcode <= input(10 downto 6);
-                reg1   <= input(5 downto 3);
-                reg2   <= input(2 downto 0);
+                null;
             when noop          =>
                 null;
             when load          =>
