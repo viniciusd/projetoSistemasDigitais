@@ -45,9 +45,9 @@ architecture controller_arch of controller is
 	);
 	signal state   : state_type;
 
-function load_vector(reg: std_logic_vector(2 downto 0);
-                    ) return std_logic_vector(7 downto 0) is
-    variable comp : std_logic;
+function load_vector(reg: std_logic_vector(2 downto 0)
+                    ) return std_logic_vector is
+    variable comp : std_logic_vector(7 downto 0);
 begin
     load := "00000000";
     case (reg) is
