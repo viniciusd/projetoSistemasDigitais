@@ -3,10 +3,10 @@ use ieee.std_logic_1164.all;
 
 entity controller is
     port (
-        clk      : in std_logic;
-        reset    : in std_logic;
-        input    : in std_logic_vector (10 downto 0);
-        cmp      : in std_logic;
+        clk         : in std_logic;
+        reset       : in std_logic;
+        instruction : in std_logic_vector (10 downto 0);
+        cmp         : in std_logic;
 
         pc_switch            : out std_logic;
         pc_incr              : out std_logic;
@@ -85,10 +85,10 @@ begin
     return load;
 end function;
 
-alias opcode is input(10 downto 6);
-alias reg1   is input(5 downto 3);
-alias reg2   is input(2 downto 0);
-alias io_reg is input(2 downto 1);
+alias opcode is instruction(10 downto 6);
+alias reg1   is instruction(5 downto 3);
+alias reg2   is instruction(2 downto 0);
+alias io_reg is instruction(2 downto 1);
 
 begin
     process (clk, reset)
