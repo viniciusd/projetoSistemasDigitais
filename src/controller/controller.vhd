@@ -15,8 +15,6 @@ entity controller is
         pilha_ld             : out std_logic;
         register_file_switch : out std_logic_vector (2 downto 0);
         alu_switch           : out std_logic_vector (4 downto 0);
-        alu_ra_switch        : out std_logic_vector (2 downto 0);
-        alu_rb_switch        : out std_logic_vector (2 downto 0);
         reg_load             : out std_logic_vector (7 downto 0);
         reg_reset            : out std_logic_vector (7 downto 0);
         io_load              : out std_logic_vector (1 downto 0);
