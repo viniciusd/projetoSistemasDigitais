@@ -45,7 +45,7 @@ architecture controller_arch of controller is
 	);
 	signal state   : state_type;
 
-function load_vector(reg: std_logic_vector(2 downto 0)
+function reg_load_vector(reg: std_logic_vector(2 downto 0)
                     ) return std_logic_vector is
     variable load : std_logic_vector(7 downto 0);
 begin
@@ -174,69 +174,69 @@ begin
             when load          =>
                 D_rd <= '1';
                 register_file_switch <= "001";
-                reg_load <= load_vector(reg1);
+                reg_load <= reg_load_vector(reg1);
             when store         =>
                 D_wr <= '1';
             when set           =>
                 register_file_switch <= "010";
-                reg_load <= load_vector(reg1);
+                reg_load <= reg_load_vector(reg1);
             when swap          =>
                 alu_switch <= "11110";
                 register_file_switch <= "000";
-                reg_load <= load_vector(reg1);
+                reg_load <= reg_load_vector(reg1);
             when move          =>
                 register_file_switch <= "011";
-                reg_load <= load_vector(reg1);
-                reg_reset <= load_vector(reg2);
+                reg_load <= reg_load_vector(reg1);
+                reg_reset <= reg_load_vector(reg2);
             when copy          =>
                 register_file_switch <= "011";
-                reg_load <= load_vector(reg1);
+                reg_load <= reg_load_vector(reg1);
             when drop          =>
-                reg_reset <= load_vector(reg1);
+                reg_reset <= reg_load_vector(reg1);
             when add           =>
                 alu_switch <= "01000";
                 register_file_switch <= "000";
-                reg_load <= load_vector(reg1);
+                reg_load <= reg_load_vector(reg1);
             when sub           =>
                 alu_switch <= "01001";
                 register_file_switch <= "000";
-                reg_load <= load_vector(reg1);
+                reg_load <= reg_load_vector(reg1);
             when inc           =>
                 alu_switch <= "01010";
                 register_file_switch <= "000";
-                reg_load <= load_vector(reg1);
+                reg_load <= reg_load_vector(reg1);
             when dec           =>
                 alu_switch <= "01011";
                 register_file_switch <= "000";
-                reg_load <= load_vector(reg1);
+                reg_load <= reg_load_vector(reg1);
             when inv           =>
                 alu_switch <= "01100";
                 register_file_switch <= "000";
-                reg_load <= load_vector(reg1);
+                reg_load <= reg_load_vector(reg1);
             when compl         =>
                 alu_switch <= "01101";
                 register_file_switch <= "000";
-                reg_load <= load_vector(reg1);
+                reg_load <= reg_load_vector(reg1);
             when l_shift       =>
                 alu_switch <= "01110";
                 register_file_switch <= "000";
-                reg_load <= load_vector(reg1);
+                reg_load <= reg_load_vector(reg1);
             when r_shift       =>
                 alu_switch <= "01111";
                 register_file_switch <= "000";
-                reg_load <= load_vector(reg1);
+                reg_load <= reg_load_vector(reg1);
             when bit_or        =>
                 alu_switch <= "11001";
                 register_file_switch <= "000";
-                reg_load <= load_vector(reg1);
+                reg_load <= reg_load_vector(reg1);
             when bit_and       =>
                 alu_switch <= "11000";
                 register_file_switch <= "000";
-                reg_load <= load_vector(reg1);
+                reg_load <= reg_load_vector(reg1);
             when bit_xor       =>
                 alu_switch <= "11010";
                 register_file_switch <= "000";
-                reg_load <= load_vector(reg1);
+                reg_load <= reg_load_vector(reg1);
             when bit_set       => null; -- TODO
             when bit_clear     => null; -- TODO
             when in_operation  => null; -- TODO
