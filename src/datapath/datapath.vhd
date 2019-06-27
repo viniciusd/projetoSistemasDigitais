@@ -194,7 +194,7 @@ BEGIN
     reg_mux_out_B  : mux8_1          PORT MAP (reg0_output, reg1_output, reg2_output, reg3_output,
                                                reg4_output, reg5_output, reg6_output, reg7_output,
                                                instruction(7 downto 5), reg_mux_out_B_output);
-    dp_alu         : alu             PORT MAP (reg_mux_out_A_output, reg_mux_out_B_output, alu_switch,
+    dp_alu         : alu             PORT MAP (signed(reg_mux_out_A_output), signed(reg_mux_out_B_output), alu_switch,
                                                instruction(4 downto 2), ALU_OUT, alu_carryout, cmp);
 
     reg_in0         : reg8           PORT MAP (io_load_in(0), reset, clock, io_in0, reg_in_output);
