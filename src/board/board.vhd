@@ -54,10 +54,10 @@ ARCHITECTURE board_arch OF board IS
 
     COMPONENT controller
         PORT (
-            clk      : in std_logic;
-            reset    : in std_logic;
-            input    : in std_logic_vector (10 downto 0);
-            cmp      : in std_logic;
+            clk         : in std_logic;
+            reset       : in std_logic;
+            instruction : in std_logic_vector (10 downto 0);
+            cmp         : in std_logic;
 
             pc_switch            : out std_logic;
             pc_incr              : out std_logic;
