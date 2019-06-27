@@ -46,7 +46,7 @@ ARCHITECTURE board_arch OF board IS
         io_out1              : out std_logic_vector (7 downto 0);
         io_out2              : out std_logic_vector (7 downto 0);
         io_out3              : out std_logic_vector (7 downto 0);
-        cmp                  : out std_logic;
+        cmp                  : buffer std_logic;
         instruction          : buffer std_logic_vector (15 downto 0)
     );
     END COMPONENT datapath;
@@ -56,7 +56,7 @@ ARCHITECTURE board_arch OF board IS
             clk         : in std_logic;
             reset       : in std_logic;
             instruction : in std_logic_vector (10 downto 0);
-            cmp         : in std_logic;
+            cmp         : buffer std_logic;
 
             pc_switch            : out std_logic;
             pc_incr              : out std_logic;

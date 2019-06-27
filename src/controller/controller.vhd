@@ -6,7 +6,7 @@ entity controller is
         clk         : in std_logic;
         reset       : in std_logic;
         instruction : in std_logic_vector (10 downto 0);
-        cmp         : in std_logic;
+        cmp         : buffer std_logic;
 
         pc_switch            : out std_logic;
         pc_incr              : out std_logic;

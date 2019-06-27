@@ -29,7 +29,7 @@ entity datapath is
         io_out1              : out std_logic_vector (7 downto 0);
         io_out2              : out std_logic_vector (7 downto 0);
         io_out3              : out std_logic_vector (7 downto 0);
-        cmp                  : out std_logic;
+        cmp                  : buffer std_logic;
         instruction          : buffer std_logic_vector (15 downto 0)
     );
 end entity;
