@@ -170,7 +170,7 @@ ARCHITECTURE datapath_arch OF datapath IS
     SIGNAL reg_in_output        : std_logic_vector (7 downto 0);
 
 BEGIN
-    stack_reg      : reg8            PORT MAP (pilha_ld, reset, clock, O_PC, stack_value);
+    stack_reg      : reg10           PORT MAP (pilha_ld, reset, clock, O_PC, stack_value);
     pc             : ProgramCounter  PORT MAP (clock, pc_ld, pc_incr, reset, I_PC, O_PC);
     pc_mux         : mux2_1          PORT MAP (instruction(10 downto 0), stack_value, pc_switch, I_PC);
     dp_ir          : ir              PORT MAP (program_data, clock, ir_load, instruction);
