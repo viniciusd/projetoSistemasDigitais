@@ -172,7 +172,7 @@ ARCHITECTURE datapath_arch OF datapath IS
 BEGIN
     stack_reg      : reg8            PORT MAP (pilha_ld, reset, clock, O_PC, stack_value);
     pc             : ProgramCounter  PORT MAP (clock, pc_ld, pc_incr, reset, I_PC, O_PC);
-    pc_mux         : mux2_1          PORT MAP (IR, stack_value, pc_switch, I_PC);
+    pc_mux         : mux2_1          PORT MAP (instruction(10 downto 0), stack_value, pc_switch, I_PC);
     dp_ir          : ir              PORT MAP (program_data, clock, ir_load, instruction);
     program_memory : single_port_rom PORT MAP (clock, to_integer(unsigned(O_PC)), program_data);
     data_memory    : single_port_ram PORT MAP (clock, to_integer(unsigned(instruction(7 downto 0))), reg_mux_out_A_output, D_wr, data_memory_rd);
