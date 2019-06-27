@@ -9,7 +9,6 @@ entity board is
         io_in               : in std_logic_vector (7 downto 0);
 
         io_load_in           : in std_logic_vector (3 downto 0);
-        io_load_out          : in std_logic_vector (3 downto 0);
 
         io_out0              : out std_logic_vector (7 downto 0);
         io_out1              : out std_logic_vector (7 downto 0);
@@ -86,12 +85,13 @@ ARCHITECTURE board_arch OF board IS
     SIGNAL D_wr                 : std_logic;
     SIGNAL cmp                  : std_logic;
     SIGNAL instruction          : std_logic_vector (15 downto 0);
+    SIGNAL io_load              : std_logic_vector (3 downto 0);
 
 BEGIN
     board_datapath   : datapath    PORT MAP (clock, reset, pc_switch, pc_incr, pc_ld,
                                             ir_load, pilha_ld, register_file_switch,
                                             alu_switch, reg_load, reg_reset, D_wr,
-                                            io_in, io_in, io_in, io_in, io_load_in, io_load_out,
+                                            io_in, io_in, io_in, io_in, io_load_in, io_load,
                                             io_out0, io_out1, io_out2, io_out3, cmp, instruction
                                       );
     board_controller : controller  PORT MAP (clock, reset, instruction(15 downto 5),
