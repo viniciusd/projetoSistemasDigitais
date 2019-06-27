@@ -183,6 +183,9 @@ ARCHITECTURE datapath_arch OF datapath IS
 
     SIGNAL reg_in_output        : std_logic_vector (7 downto 0);
 
+    SIGNAL program_address      : natural;
+    SIGNAL memory_address       : natural;
+
 BEGIN
     stack_reg      : reg11           PORT MAP (pilha_ld, reset, clock, O_PC, stack_value);
     pc             : ProgramCounter  PORT MAP (clock, pc_ld, pc_incr, reset, I_PC, O_PC);
