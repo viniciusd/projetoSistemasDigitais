@@ -3,7 +3,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity reg8 is
+entity reg11 is
     port
     (
         -- Input ports
@@ -15,10 +15,10 @@ entity reg8 is
         -- Output ports
         output : out std_logic_vector (10 downto 0)
 	);
-end reg8;
+end reg11;
 
 
-architecture reg8_arch of reg8 is
+architecture reg11_arch of reg11 is
 begin
     process(clock) is 
     begin 
@@ -30,4 +30,4 @@ begin
             end if;
         end if;
     end process;
-end reg8_arch;
+end reg11_arch;

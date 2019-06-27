@@ -114,6 +114,20 @@ ARCHITECTURE datapath_arch OF datapath IS
         );
     END COMPONENT reg8;
 
+    COMPONENT reg11
+        PORT
+        (
+            -- Input ports
+            load   : in std_logic;
+            reset  : in std_logic;
+            clock  : in std_logic;
+            input  : in std_logic_vector (10 downto 0);
+
+            -- Output ports
+            output : out std_logic_vector (10 downto 0)
+        );
+    END COMPONENT reg11;
+
     COMPONENT single_port_ram
         GENERIC
         (
