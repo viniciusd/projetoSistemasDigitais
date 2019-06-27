@@ -85,7 +85,7 @@ ARCHITECTURE board_arch OF board IS
     SIGNAL reg_reset            : std_logic_vector (7 downto 0);
     SIGNAL D_wr                 : std_logic;
     SIGNAL cmp                  : std_logic;
-    SIGNAL instruction          : std_logic_vector (15 downto 0)
+    SIGNAL instruction          : std_logic_vector (15 downto 0);
 
 BEGIN
     datapath   : datapath    PORT MAP (clock, reset, pc_switch, pc_incr, pc_ld,
