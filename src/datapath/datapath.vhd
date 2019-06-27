@@ -185,17 +185,19 @@ ARCHITECTURE datapath_arch OF datapath IS
 
     SIGNAL program_address      : natural;
     SIGNAL data_address         : natural;
+    SIGNAL instruction_data     : std_logic_vector (15 downto 0);
 
 BEGIN
     stack_reg      : reg11           PORT MAP (pilha_ld, reset, clock, O_PC, stack_value);
     pc             : ProgramCounter  PORT MAP (clock, pc_ld, pc_incr, reset, I_PC, O_PC);
     dp_ir          : ir              PORT MAP (program_data, clock, ir_load, instruction);
-    pc_mux         : mux2_1          PORT MAP (instruction(10 downto 0), stack_value, pc_switch, I_PC);
+    instruction_data <= instruction;
+    pc_mux         : mux2_1          PORT MAP (instruction_data(10 downto 0), stack_value, pc_switch, I_PC);
     program_address <= to_integer(unsigned(O_PC));
     program_memory : single_port_rom PORT MAP (clock, program_address, program_data);
-    data_address    <= to_integer(unsigned(instruction(7 downto 0)));
+    data_address    <= to_integer(unsigned(instruction_data(7 downto 0)));
     data_memory    : single_port_ram PORT MAP (clock, data_address, reg_mux_out_A_output, D_wr, data_memory_rd);
-    reg_mux_in     : mux8_1          PORT MAP (std_logic_vector(ALU_OUT), data_memory_rd, instruction(7 downto 0),
+    reg_mux_in     : mux8_1          PORT MAP (std_logic_vector(ALU_OUT), data_memory_rd, instruction_data(7 downto 0),
                                                reg_mux_out_A_output, reg_in_output,
                                                "00000000", "00000000", "00000000",
                                                register_file_switch, reg_input);
@@ -209,12 +211,12 @@ BEGIN
     reg7           : reg8            PORT MAP (reg_load(7), reg_reset(7), clock, reg_input, reg7_output);
     reg_mux_out_A  : mux8_1          PORT MAP (reg0_output, reg1_output, reg2_output, reg3_output,
                                                reg4_output, reg5_output, reg6_output, reg7_output,
-                                               instruction(10 downto 8), reg_mux_out_A_output);
+                                               instruction_data(10 downto 8), reg_mux_out_A_output);
     reg_mux_out_B  : mux8_1          PORT MAP (reg0_output, reg1_output, reg2_output, reg3_output,
                                                reg4_output, reg5_output, reg6_output, reg7_output,
-                                               instruction(7 downto 5), reg_mux_out_B_output);
+                                               instruction_data(7 downto 5), reg_mux_out_B_output);
     dp_alu         : alu             PORT MAP (signed(reg_mux_out_A_output), signed(reg_mux_out_B_output), alu_switch,
-                                               instruction(4 downto 2), ALU_OUT, alu_carryout, cmp);
+                                               instruction_data(4 downto 2), ALU_OUT, alu_carryout, cmp);
 
     reg_in0         : reg8           PORT MAP (io_load_in(0), reset, clock, io_in0, reg_in_output);
     reg_in1         : reg8           PORT MAP (io_load_in(1), reset, clock, io_in1, reg_in_output);
