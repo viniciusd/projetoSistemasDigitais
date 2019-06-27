@@ -184,7 +184,7 @@ ARCHITECTURE datapath_arch OF datapath IS
     SIGNAL reg_in_output        : std_logic_vector (7 downto 0);
 
     SIGNAL program_address      : natural;
-    SIGNAL memory_address       : natural;
+    SIGNAL data_address         : natural;
 
 BEGIN
     stack_reg      : reg11           PORT MAP (pilha_ld, reset, clock, O_PC, stack_value);
@@ -193,7 +193,7 @@ BEGIN
     pc_mux         : mux2_1          PORT MAP (instruction(10 downto 0), stack_value, pc_switch, I_PC);
     program_address <= to_integer(unsigned(O_PC));
     program_memory : single_port_rom PORT MAP (clock, program_address, program_data);
-    data_address    <= to_integer(unsigned(intruction(7 downto 0)));
+    data_address    <= to_integer(unsigned(instruction(7 downto 0)));
     data_memory    : single_port_ram PORT MAP (clock, data_address, reg_mux_out_A_output, D_wr, data_memory_rd);
     reg_mux_in     : mux8_1          PORT MAP (std_logic_vector(ALU_OUT), data_memory_rd, instruction(7 downto 0),
                                                reg_mux_out_A_output, reg_in_output,
