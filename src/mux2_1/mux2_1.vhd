@@ -18,8 +18,8 @@ end mux2_1;
 architecture arch_mux2_1 of mux2_1 is
 begin
 	WITH switch SELECT
-	  y <=              e0 WHEN 0,
-                        e1 WHEN 1,
+	  y <=              e0 WHEN '0',
+                        e1 WHEN '1',
            (others => '0') WHEN others
 	  ;
 end arch_mux2_1;
