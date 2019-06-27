@@ -88,15 +88,15 @@ ARCHITECTURE board_arch OF board IS
     SIGNAL instruction          : std_logic_vector (15 downto 0);
 
 BEGIN
-    datapath   : datapath    PORT MAP (clock, reset, pc_switch, pc_incr, pc_ld,
-                                       ir_load, pilha_ld, register_file_switch,
-                                       alu_switch, reg_load, reg_reset, D_wr,
-                                       io_in, io_in, io_in, io_in, io_load_in, io_load_out,
-                                       io_out0, io_out1, io_out2, io_out3, cmp, instruction
+    board_datapath   : datapath    PORT MAP (clock, reset, pc_switch, pc_incr, pc_ld,
+                                            ir_load, pilha_ld, register_file_switch,
+                                            alu_switch, reg_load, reg_reset, D_wr,
+                                            io_in, io_in, io_in, io_in, io_load_in, io_load_out,
+                                            io_out0, io_out1, io_out2, io_out3, cmp, instruction
                                       );
-    controller : controller  PORT MAP (clock, reset, instruction(15 downto 5),
-                                       cmp, pc_switch, pc_incr, pc_ld, ir_load,
-                                       pilha_ld, register_file_switch, alu_switch,
-                                       reg_load, reg_reset, io_load, D_wr
+    board_controller : controller  PORT MAP (clock, reset, instruction(15 downto 5),
+                                             cmp, pc_switch, pc_incr, pc_ld, ir_load,
+                                             pilha_ld, register_file_switch, alu_switch,
+                                             reg_load, reg_reset, io_load, D_wr
                                       );
 END board_arch;
