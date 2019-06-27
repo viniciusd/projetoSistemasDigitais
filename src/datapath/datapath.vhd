@@ -164,7 +164,7 @@ ARCHITECTURE datapath_arch OF datapath IS
 
     SIGNAL reg_mux_out_A_output : std_logic_vector (7 downto 0);
     SIGNAL reg_mux_out_B_output : std_logic_vector (7 downto 0);
-    SIGNAL alu_ouptut           : std_logic_vector (7 downto 0);
+    SIGNAL ALU_OUT              : std_logic_vector (7 downto 0);
     SIGNAL alu_carryout         : std_logic;
 
     SIGNAL reg_in_output        : std_logic_vector (7 downto 0);
