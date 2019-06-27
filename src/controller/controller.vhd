@@ -18,7 +18,6 @@ entity controller is
         reg_load             : out std_logic_vector (7 downto 0);
         reg_reset            : out std_logic_vector (7 downto 0);
         io_load              : out std_logic_vector (3 downto 0);
-        D_rd                 : out std_logic;
         D_wr                 : out std_logic
     );
 end entity;
@@ -188,7 +187,6 @@ begin
             when noop          =>
                 null;
             when load          =>
-                D_rd <= '1';
                 register_file_switch <= "001";
                 reg_load <= reg_load_vector(reg1);
             when store         =>

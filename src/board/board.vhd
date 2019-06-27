@@ -33,7 +33,6 @@ ARCHITECTURE board_arch OF board IS
         alu_switch           : in std_logic_vector (4 downto 0);
         reg_load             : in std_logic_vector (7 downto 0);
         reg_reset            : in std_logic_vector (7 downto 0);
-        D_rd                 : in std_logic;
         D_wr                 : in std_logic;
 
         io_in0               : in std_logic_vector (7 downto 0);
@@ -70,7 +69,6 @@ ARCHITECTURE board_arch OF board IS
             reg_load             : out std_logic_vector (7 downto 0);
             reg_reset            : out std_logic_vector (7 downto 0);
             io_load              : out std_logic_vector (3 downto 0);
-            D_rd                 : out std_logic;
             D_wr                 : out std_logic
         );
 
@@ -85,7 +83,6 @@ ARCHITECTURE board_arch OF board IS
     SIGNAL alu_switch           : std_logic_vector (4 downto 0);
     SIGNAL reg_load             : std_logic_vector (7 downto 0);
     SIGNAL reg_reset            : std_logic_vector (7 downto 0);
-    SIGNAL D_rd                 : std_logic;
     SIGNAL D_wr                 : std_logic;
     SIGNAL cmp                  : std_logic;
     SIGNAL instruction          : std_logic_vector (15 downto 0)
@@ -93,13 +90,13 @@ ARCHITECTURE board_arch OF board IS
 BEGIN
     datapath   : datapath    PORT MAP (clock, reset, pc_switch, pc_incr, pc_ld,
                                        ir_load, pilha_ld, register_file_switch,
-                                       alu_switch, reg_load, reg_reset, D_rd, D_wr,
+                                       alu_switch, reg_load, reg_reset, D_wr,
                                        io_in, io_in, io_in, io_in, io_load_in, io_load_out,
                                        io_out0, io_out1, io_out2, io_out3, cmp, instruction
                                       );
     controller : controller  PORT MAP (clock, reset, instruction(15 downto 5),
                                        cmp, pc_switch, pc_incr, pc_ld, ir_load,
                                        pilha_ld, register_file_switch, alu_switch,
-                                       reg_load, reg_reset, io_load, D_rd, D_wr
+                                       reg_load, reg_reset, io_load, D_wr
                                       );
 END board_arch;

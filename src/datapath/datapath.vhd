@@ -14,7 +14,6 @@ entity datapath is
         alu_switch           : in std_logic_vector (4 downto 0);
         reg_load             : in std_logic_vector (7 downto 0);
         reg_reset            : in std_logic_vector (7 downto 0);
-        D_rd                 : in std_logic;
         D_wr                 : in std_logic;
 
         io_in0               : in std_logic_vector (7 downto 0);
